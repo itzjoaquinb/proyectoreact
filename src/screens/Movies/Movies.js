@@ -43,7 +43,6 @@ class Movies extends Component {
           <input type="text" name="filter" placeholder="Buscar dentro de la lista" />
         </form>
         
-        <button onClick={this.obtenerPeliculas} className="btn btn-info">Cargar más</button>
 
         <section className="row cards all-movies" id="movies">
           {peliculas.map(pelicula => (
@@ -57,6 +56,8 @@ class Movies extends Component {
             />
           ))}
         </section>
+        <button onClick={this.obtenerPeliculas} className="btn btn-info">Cargar más</button>
+
       </>
     );
   }

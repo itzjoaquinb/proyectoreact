@@ -28,7 +28,7 @@ class CardPelicula extends Component {
         <img src={urlImagen} className="card-img-top" alt={titulo} />
         <div className="cardBody">
           <h5 className="card-title">{titulo}</h5>
-          
+          <section className= "section-desc">
           {this.state.verDescripcion && (
             <p className="card-text">{descripcion}</p>
           )}
@@ -44,6 +44,7 @@ class CardPelicula extends Component {
           <button className="btn alert-primary">
             ♥️
           </button>
+          </section>
         </div>
       </article>
     );
