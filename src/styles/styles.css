@@ -41,6 +41,8 @@ nav {
 .filter-form input {
     line-height: 1.5;
 }
+/* ... el resto de tu CSS ... */
+
 .cards {
     padding: 0.75rem 1.25rem;
     display: flex;
@@ -55,8 +57,12 @@ nav {
 .single-card-people {
     width: 19%;
 }
+/* Aumenta el ancho de las tarjetas de películas para que quepan 4 por fila */
 .single-card-movie {
     width: 24%;
+}
+.single-card-movie img{
+    width: 100%;
 }
 .single-card-playing {
     width: 15%;
@@ -80,9 +86,12 @@ nav {
     overflow: hidden;
 }
 
+/* Modifica el ancho para que quepan más en la vista de "Todas las películas" */
 .all-movies .single-card-movie {
-    width: 15%;
+    width: 24%;
+    margin-bottom: 20px;
 }
+
 
 @media(min-width: 765px){
     nav {
