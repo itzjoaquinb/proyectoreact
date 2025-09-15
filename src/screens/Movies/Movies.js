@@ -6,9 +6,9 @@ class Movies extends Component {
     super(props);
     this.state = {
       peliculas: [],
-      urlPeliculas: `https://api.themoviedb.org/3/movie/popular?api_key=7f7f8af8dc7e7a53c53410d1521c094f`,
-      cargando: true,
       pagina: 1,
+      cargando: true,
+      titulo: 'Todas las películas',
     };
   }
 
@@ -17,7 +17,22 @@ class Movies extends Component {
   }
 
   obtenerPeliculas = () => {
-    fetch(`${this.state.urlPeliculas}&page=${this.state.pagina}`)
+    const apiKey = '7f7f8af8dc7e7a53c53410d1521c094f'; 
+    const categoria = new URLSearchParams(this.props.location.search).get("category");
+    let url = '';
+    
+    if (categoria === 'popular') {
+        url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${this.state.pagina}`;
+        this.setState({ titulo: 'Películas populares' });
+    } else if (categoria === 'now_playing') {
+        url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&page=${this.state.pagina}`;
+        this.setState({ titulo: 'Películas en cartelera' });
+    } else {
+        url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${this.state.pagina}`; // Por defecto, muestra las populares
+        this.setState({ titulo: 'Todas las películas' });
+    }
+
+    fetch(url)
       .then(res => res.json())
       .then(data => {
         this.setState(prevState => ({
@@ -30,7 +45,7 @@ class Movies extends Component {
   };
 
   render() {
-    const { peliculas, cargando } = this.state;
+    const { peliculas, cargando, titulo } = this.state;
 
     if (cargando) {
       return <h2>Cargando...</h2>;
@@ -38,13 +53,13 @@ class Movies extends Component {
 
     return (
       <>
-        <h2 className="alert alert-primary">Todas las películas</h2>
+        <h2 className="alert alert-primary">{titulo}</h2>
         <form className="filter-form px-0 mb-3">
           <input type="text" name="filter" placeholder="Buscar dentro de la lista" />
         </form>
         
 
-        <section className="row cards all-movies" id="movies">
+        <section className="row cards all-movies">
           {peliculas.map(pelicula => (
             <CardPelicula
               key={pelicula.id}

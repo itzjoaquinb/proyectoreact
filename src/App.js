@@ -9,7 +9,7 @@ import Favorites from './screens/Favorites/Favorites';
 import Results from './screens/Resultados/Resultados';
 import MovieDetail from './screens/MovieDetail/MovieDetail';
 import SerieDetail from './screens/SerieDetail/SerieDetail';
-import './styles/styles.css'; // Importa el archivo CSS
+import './styles/styles.css';
 
 
 function App() {

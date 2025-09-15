@@ -44,7 +44,6 @@ class Series extends Component {
           <input type="text" name="filter" placeholder="Buscar dentro de la lista" />
         </form>
         
-        <button onClick={this.obtenerSeries} className="btn btn-warning">Cargar más</button>
 
         <section className="row cards all-series" id="series">
           {series.map(serie => (
@@ -56,8 +55,11 @@ class Series extends Component {
               descripcion={serie.overview}
               tipo="serie"
             />
+
           ))}
         </section>
+        <button onClick={this.obtenerSeries} className="btn btn-warning">Cargar más</button>
+
       </>
     );
   }

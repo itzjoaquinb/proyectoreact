@@ -76,6 +76,11 @@ class Home extends Component {
             />
           ))}
         </section>
+        
+        {/* Enlace para 'Ver todas' las películas populares */}
+        <div className="text-center my-4">
+          <Link to="/peliculas?category=popular" className="btn btn-load">VER TODAS LAS PELICULAS POPULARES</Link>
+        </div>
 
         <h2 className="alert alert-primary">Películas en cartelera</h2>
         <section className="row cards" id="now-playing">
@@ -90,6 +95,11 @@ class Home extends Component {
             />
           ))}
         </section>
+        
+        {/* Enlace para 'Ver todas' las películas en cartelera */}
+        <div className="text-center my-4">
+          <Link to="/peliculas?category=now_playing" className="btn btn-load">VER TODAS LAS PELICULAS EN CARTELERA</Link>
+        </div>
       </>
     );
   }

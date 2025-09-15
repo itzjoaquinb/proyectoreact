@@ -16,7 +16,7 @@ function Header() {
           <Link className="nav-link" to="/series">Series</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/favorites">Favoritas</Link>
+          <Link className="nav-link" to="/favoritos">Favoritas</Link>
         </li>
       </ul>
       <form className="search-form" action="results.html" method="get">
