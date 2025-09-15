@@ -35,9 +35,9 @@ class SerieDetail extends Component {
         <img className="col-md-6" src={`https://image.tmdb.org/t/p/w500/${pelicula.poster_path}`} alt={pelicula.title} />
         <section className="detail-movieadad">
           <h3>Descripción</h3>
-          <h2 className="alert alert-primary">{pelicula.title}</h2>
+          <h2 className="alert alert-primary">{pelicula.name}</h2>
           <p className="description">{pelicula.overview}</p>
-          <p id="release-date"><strong>Fecha de estreno:</strong> {pelicula.release_date}</p>
+          <p id="release-date"><strong>Fecha de estreno:</strong> {pelicula.first_air_date}</p>
           <p id="votes"><strong>Puntuación:</strong> {pelicula.vote_average}</p>
           <p id="genres"><strong>Géneros:</strong> {pelicula.genres.map(g => g.name).join(', ')}</p>
         </section>

@@ -38,7 +38,8 @@ class MovieDetail extends Component {
           <h2 className="alert alert-primary">{pelicula.title}</h2>
           <p className="description">{pelicula.overview}</p>
           <p id="release-date"><strong>Fecha de estreno:</strong> {pelicula.release_date}</p>
-          <p id="votes"><strong>Puntuación:</strong> {pelicula.vote_average}</p>
+        <p id="runtime"><strong>Duración:</strong> {pelicula.runtime} Minutos</p>
+          <p id="votes"><strong>Puntuación:</strong> {pelicula.vote_average} / 10</p>
           <p id="genres"><strong>Géneros:</strong> {pelicula.genres.map(g => g.name).join(', ')}</p>
         </section>
       </section>

@@ -62,8 +62,12 @@ class Home extends Component {
           />
           <button type="submit" className="btn btn-success btn-sm">Buscar</button>
         </form>
-
+        <section className= "title">
         <h2 className="alert alert-primary">Películas populares de la semana</h2>
+             <div className="text-center my-4">
+          <Link to="/peliculas?category=popular" className="btn btn-load">VER TODAS LAS PELICULAS POPULARES</Link>
+        </div>
+        </section>
         <section className="row cards" id="movies">
           {peliculasPopulares.map(pelicula => (
             <CardPelicula 
@@ -77,12 +81,13 @@ class Home extends Component {
           ))}
         </section>
         
-        {/* Enlace para 'Ver todas' las películas populares */}
-        <div className="text-center my-4">
-          <Link to="/peliculas?category=popular" className="btn btn-load">VER TODAS LAS PELICULAS POPULARES</Link>
-        </div>
 
+          <section className= "title">
         <h2 className="alert alert-primary">Películas en cartelera</h2>
+            <div className="text-center my-4">
+          <Link to="/peliculas?category=now_playing" className="btn btn-load">VER TODAS LAS PELICULAS EN CARTELERA</Link>
+        </div>
+        </section>
         <section className="row cards" id="now-playing">
           {peliculasEnCartelera.map(pelicula => (
             <CardPelicula 
@@ -95,11 +100,7 @@ class Home extends Component {
             />
           ))}
         </section>
-        
-        {/* Enlace para 'Ver todas' las películas en cartelera */}
-        <div className="text-center my-4">
-          <Link to="/peliculas?category=now_playing" className="btn btn-load">VER TODAS LAS PELICULAS EN CARTELERA</Link>
-        </div>
+
       </>
     );
   }
