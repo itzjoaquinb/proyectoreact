@@ -104,7 +104,7 @@ class CardPelicula extends Component {
               </button>
             ) : (
               <button className="btn alert-primary" onClick={this.agregarAFavoritos} title="Agregar a favoritos">
-                ♥️
+                ♡
               </button>
             )}
           </section>

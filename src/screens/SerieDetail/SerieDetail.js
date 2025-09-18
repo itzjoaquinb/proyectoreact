@@ -25,6 +25,37 @@ class SerieDetail extends Component {
       .catch(err => console.log('Error al obtener datos de la película:', err));
   }
 
+  agregarAFavoritos = () => {
+    const id = this.props.id;
+
+    let favoritos = [];
+    let datosEnLocalStorage = localStorage.getItem('LSfavoritos');
+    if (datosEnLocalStorage != null) {
+      favoritos = JSON.parse(datosEnLocalStorage);
+    }
+
+    const yaEsta = favoritos.filter(function (unID) { return unID === id; });
+    if (yaEsta.length === 0) {
+      favoritos.push(id); 
+      localStorage.setItem('LSfavoritos', JSON.stringify(favoritos));
+      this.setState({ esFavorito: true }); 
+    }
+  };
+
+  quitarDeFavoritos = () => {
+    const id = this.props.id;
+
+    let favoritos = [];
+    let datosEnLocalStorage = localStorage.getItem('LSfavoritos');
+    if (datosEnLocalStorage != null) {
+      favoritos = JSON.parse(datosEnLocalStorage);
+    }
+
+    const favoritosActualizados = favoritos.filter(function (unID) { return unID !== id; });
+    localStorage.setItem('LSfavoritos', JSON.stringify(favoritosActualizados));
+    this.setState({ esFavorito: false });
+  };
+
   render() {
     const { pelicula, cargando } = this.state;
 
@@ -41,6 +72,15 @@ class SerieDetail extends Component {
           <p id="votes"><strong>Puntuación:</strong> {pelicula.vote_average}</p>
           <p id="genres"><strong>Géneros:</strong> {pelicula.genres.map(g => g.name).join(', ')}</p>
         </section>
+        {this.state.esFavorito ? (
+              <button className="btn alert-primary" onClick={this.quitarDeFavoritos} title="Quitar de favoritos">
+                Quitar de Favoritos ♥️
+              </button>
+            ) : (
+              <button className="btn alert-primary" onClick={this.agregarAFavoritos} title="Agregar a favoritos">
+                Agregar a Favoritos ♡
+              </button>
+            )}
       </section>
     );
   }
