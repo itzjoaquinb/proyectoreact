@@ -9,6 +9,7 @@ import Favorites from './screens/Favorites/Favorites';
 import Results from './screens/Resultados/Resultados';
 import MovieDetail from './screens/MovieDetail/MovieDetail';
 import SerieDetail from './screens/SerieDetail/SerieDetail';
+import NotFound from './screens/NotFound/NotFound';
 import './styles/styles.css';
 
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/results" component={Results} />
             <Route path="/movie/:id" component={MovieDetail} />
             <Route path="/serie/:id" component={SerieDetail} />
+            <Route component={NotFound} /> 
           </Switch>
         </main>
         <Footer />
