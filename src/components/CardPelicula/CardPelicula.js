@@ -14,15 +14,10 @@ class CardPelicula extends Component {
 
   componentDidMount() {
     const id = this.props.id;
+    let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+    const yaEsta = favoritos.some(fav => fav.id === id);
 
-    let favoritos = [];
-    let datosEnLocalStorage = localStorage.getItem('LSfavoritos');
-    if (datosEnLocalStorage != null) {
-      favoritos = JSON.parse(datosEnLocalStorage);
-    }
-
-    const yaEsta = favoritos.filter(function (unID) { return unID === id; });
-    if (yaEsta.length > 0) {
+    if (yaEsta) {
       this.setState({ esFavorito: true });
     }
   }
@@ -36,32 +31,30 @@ class CardPelicula extends Component {
 
   agregarAFavoritos = () => {
     const id = this.props.id;
+    const { titulo, imagen, descripcion, tipo } = this.props;
 
-    let favoritos = [];
-    let datosEnLocalStorage = localStorage.getItem('LSfavoritos');
-    if (datosEnLocalStorage != null) {
-      favoritos = JSON.parse(datosEnLocalStorage);
-    }
+    let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+    const yaEsta = favoritos.some(fav => fav.id === id);
 
-    const yaEsta = favoritos.filter(function (unID) { return unID === id; });
-    if (yaEsta.length === 0) {
-      favoritos.push(id); 
-      localStorage.setItem('LSfavoritos', JSON.stringify(favoritos));
-      this.setState({ esFavorito: true }); 
+    if (!yaEsta) {
+      const nuevoFavorito = {
+        id: id,
+        titulo: titulo,
+        imagen: imagen,
+        descripcion: descripcion,
+        tipo: tipo,
+      };
+      favoritos.push(nuevoFavorito);
+      localStorage.setItem('favoritos', JSON.stringify(favoritos));
+      this.setState({ esFavorito: true });
     }
   };
 
   quitarDeFavoritos = () => {
     const id = this.props.id;
-
-    let favoritos = [];
-    let datosEnLocalStorage = localStorage.getItem('LSfavoritos');
-    if (datosEnLocalStorage != null) {
-      favoritos = JSON.parse(datosEnLocalStorage);
-    }
-
-    const favoritosActualizados = favoritos.filter(function (unID) { return unID !== id; });
-    localStorage.setItem('LSfavoritos', JSON.stringify(favoritosActualizados));
+    let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+    const favoritosActualizados = favoritos.filter(fav => fav.id !== id);
+    localStorage.setItem('favoritos', JSON.stringify(favoritosActualizados));
     this.setState({ esFavorito: false });
   };
 
@@ -83,20 +76,16 @@ class CardPelicula extends Component {
 
         <div className="cardBody">
           <h5 className="card-title">{titulo}</h5>
-
           <section className="section-desc">
             {this.state.verDescripcion && (
               <p className="card-text">{descripcion}</p>
             )}
-
             <button className="btn btn-primary" onClick={this.manejarDescripcion}>
               {this.state.textoBoton}
             </button>
-
             <Link to={`/${tipo}/${id}`} className="btn btn-primary">
               Ir a detalle
             </Link>
-
             {this.state.esFavorito ? (
               <button className="btn alert-primary" onClick={this.quitarDeFavoritos} title="Quitar de favoritos">
                 ♥️

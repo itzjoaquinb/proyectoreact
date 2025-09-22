@@ -13,18 +13,21 @@ class Favorites extends Component {
     this.obtenerFavoritos();
   }
 
+  // Se agregará el ciclo de vida para asegurarse de que la lista se actualice
+  componentDidUpdate(prevProps, prevState) {
+    // Si la cantidad de favoritos cambia, volvemos a obtenerlos del localStorage.
+    if (this.state.favoritos.length !== prevState.favoritos.length) {
+      this.obtenerFavoritos();
+    }
+  }
+
   // Método para obtener la lista de favoritos del localStorage
   obtenerFavoritos = () => {
     const favoritosGuardados = JSON.parse(localStorage.getItem('favoritos')) || [];
     this.setState({ favoritos: favoritosGuardados });
   };
   
-  // Método para eliminar un favorito de la lista
-  eliminarFavorito = (id) => {
-    const favoritosActualizados = this.state.favoritos.filter(fav => fav.id !== id);
-    localStorage.setItem('favoritos', JSON.stringify(favoritosActualizados));
-    this.setState({ favoritos: favoritosActualizados });
-  };
+  // No necesitamos la función eliminarFavorito aquí, ya que la CardPelicula se encarga de eso.
 
   render() {
     const { favoritos } = this.state;
@@ -46,8 +49,6 @@ class Favorites extends Component {
                 imagen={fav.imagen}
                 descripcion={fav.descripcion}
                 tipo={fav.tipo}
-                // Pasamos la función de eliminación como una prop
-                onEliminar={this.eliminarFavorito}
               />
             ))}
           </section>
@@ -66,8 +67,6 @@ class Favorites extends Component {
                 imagen={fav.imagen}
                 descripcion={fav.descripcion}
                 tipo={fav.tipo}
-                // Pasamos la función de eliminación como una prop
-                onEliminar={this.eliminarFavorito}
               />
             ))}
           </section>

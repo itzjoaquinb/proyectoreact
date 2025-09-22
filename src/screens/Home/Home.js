@@ -19,18 +19,23 @@ class Home extends Component {
     const urlPeliculasPopulares = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`;
     const urlPeliculasEnCartelera = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`;
 
-    Promise.all([
-      fetch(urlPeliculasPopulares).then(res => res.json()),
-      fetch(urlPeliculasEnCartelera).then(res => res.json()),
-    ])
-    .then(([datosPopulares, datosEnCartelera]) => {
-      this.setState({
-        peliculasPopulares: datosPopulares.results.slice(0, 4),
-        peliculasEnCartelera: datosEnCartelera.results.slice(0, 4),
-        cargando: false,
-      });
-    })
-    .catch(err => console.log('Error al obtener datos:', err));
+    fetch(urlPeliculasPopulares)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          peliculasPopulares: data.results.filter((item, index) => index < 4),
+        });
+
+        fetch(urlPeliculasEnCartelera)
+          .then(res => res.json())
+          .then(dataEnCartelera => {
+            this.setState({
+              peliculasEnCartelera: dataEnCartelera.results.filter((item, index) => index < 4),
+              cargando: false,
+            });
+          });
+      })
+      .catch(err => console.log('Error al obtener datos:', err));
   }
   
   manejarCambios = (evento) => {
@@ -65,7 +70,7 @@ class Home extends Component {
         <section className= "title">
         <h2 className="alert alert-primary">Películas populares de la semana</h2>
              <div className="text-center my-4">
-          <Link to="/peliculas?category=popular" className="btn btn-load">VER TODAS LAS PELICULAS POPULARES</Link>
+          <Link to="/movies?category=popular" className="btn btn-load">VER TODAS LAS PELICULAS POPULARES</Link>
         </div>
         </section>
         <section className="row cards" id="movies">
@@ -85,7 +90,7 @@ class Home extends Component {
           <section className= "title">
         <h2 className="alert alert-primary">Películas en cartelera</h2>
             <div className="text-center my-4">
-          <Link to="/peliculas?category=now_playing" className="btn btn-load">VER TODAS LAS PELICULAS EN CARTELERA</Link>
+          <Link to="/movies?category=now_playing" className="btn btn-load">VER TODAS LAS PELICULAS EN CARTELERA</Link>
         </div>
         </section>
         <section className="row cards" id="now-playing">
