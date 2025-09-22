@@ -68,7 +68,6 @@ class CardPelicula extends Component {
   render() {
     const { id, titulo, imagen, descripcion, tipo } = this.props;
 
-    // URL de imagen (sin usar ||)
     let urlImagen = '';
     if (imagen) {
       urlImagen = `https://image.tmdb.org/t/p/w500/${imagen}`;

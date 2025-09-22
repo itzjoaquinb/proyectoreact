@@ -24,7 +24,7 @@ function App() {
             <Route path="/peliculas" exact component={Movies} />
             <Route path="/series" exact component={Series} />
             <Route path="/favoritos" exact component={Favorites} />
-            <Route path="/results" component={Results} />
+            <Route path="/results/:tipo/:query" component={Results} />
             <Route path="/movie/:id" component={MovieDetail} />
             <Route path="/serie/:id" component={SerieDetail} />
             <Route component={NotFound} /> 
