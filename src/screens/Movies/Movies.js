@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CardPelicula from '../../components/CardPelicula/CardPelicula';
+import { Link } from 'react-router-dom';
 
 class Movies extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class Movies extends Component {
       pagina: 1,
       cargando: true,
       titulo: 'Todas las películas',
+      filtroPeliculas: '', // Estado para el valor del filtro
     };
   }
 
@@ -17,7 +19,7 @@ class Movies extends Component {
   }
 
   obtenerPeliculas = () => {
-    const apiKey = '7f7f8af8dc7e7a53c53410d1521c094f'; 
+    const apiKey = '7f7f8af8dc7e7a53c53410d1521c094f';
     const categoria = new URLSearchParams(this.props.location.search).get("category");
     let url = '';
     
@@ -28,7 +30,7 @@ class Movies extends Component {
         url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&page=${this.state.pagina}`;
         this.setState({ titulo: 'Películas en cartelera' });
     } else {
-        url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${this.state.pagina}`; // Por defecto, muestra las populares
+        url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${this.state.pagina}`;
         this.setState({ titulo: 'Todas las películas' });
     }
 
@@ -43,33 +45,51 @@ class Movies extends Component {
       })
       .catch(err => console.log('Error al obtener películas:', err));
   };
+  
+  manejarCambios = (e) => {
+    this.setState({ filtroPeliculas: e.target.value });
+  };
 
   render() {
-    const { peliculas, cargando, titulo } = this.state;
+    const { peliculas, cargando, titulo, filtroPeliculas } = this.state;
 
     if (cargando) {
       return <h2>Cargando...</h2>;
     }
+    
+    const peliculasFiltradas = peliculas.filter(pelicula =>
+        pelicula.title.toLowerCase().includes(filtroPeliculas.toLowerCase())
+    );
 
     return (
       <>
         <h2 className="alert alert-primary">{titulo}</h2>
         <form className="filter-form px-0 mb-3">
-          <input type="text" name="filter" placeholder="Buscar dentro de la lista" />
+          <input 
+            type="text" 
+            name="filter" 
+            placeholder="Buscar dentro de la lista" 
+            value={filtroPeliculas}
+            onChange={this.manejarCambios}
+          />
         </form>
         
 
         <section className="row cards all-movies">
-          {peliculas.map(pelicula => (
-            <CardPelicula
-              key={pelicula.id}
-              id={pelicula.id}
-              titulo={pelicula.title}
-              imagen={pelicula.poster_path}
-              descripcion={pelicula.overview}
-              tipo="movie"
-            />
-          ))}
+          {peliculasFiltradas.length > 0 ? (
+            peliculasFiltradas.map(pelicula => (
+              <CardPelicula
+                key={pelicula.id}
+                id={pelicula.id}
+                titulo={pelicula.title}
+                imagen={pelicula.poster_path}
+                descripcion={pelicula.overview}
+                tipo="movie"
+              />
+            ))
+          ) : (
+            <p>No se encontraron películas que coincidan.</p>
+          )}
         </section>
         <button onClick={this.obtenerPeliculas} className="btn btn-info">Cargar más</button>
 

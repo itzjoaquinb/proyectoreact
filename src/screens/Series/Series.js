@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CardPelicula from '../../components/CardPelicula/CardPelicula'; // El mismo componente de tarjeta
+import CardPelicula from '../../components/CardPelicula/CardPelicula'; 
 import { Link } from 'react-router-dom';
 
 class Series extends Component {
@@ -7,9 +7,11 @@ class Series extends Component {
     super(props);
     this.state = {
       series: [],
+      seriesOriginales: [], // Estado para guardar la lista completa
       urlSeries: `https://api.themoviedb.org/3/tv/popular?api_key=7f7f8af8dc7e7a53c53410d1521c094f`,
       cargando: true,
       pagina: 1,
+      filtroSeries: '',
     };
   }
 
@@ -23,6 +25,7 @@ class Series extends Component {
       .then(data => {
         this.setState(prevState => ({
           series: prevState.series.concat(data.results),
+          seriesOriginales: prevState.seriesOriginales.concat(data.results),
           cargando: false,
           pagina: prevState.pagina + 1,
         }));
@@ -30,8 +33,20 @@ class Series extends Component {
       .catch(err => console.log('Error al obtener series:', err));
   };
 
+  manejarCambios = (e) => {
+    const filtro = e.target.value;
+    const seriesFiltradas = this.state.seriesOriginales.filter(serie =>
+      serie.name.toLowerCase().includes(filtro.toLowerCase())
+    );
+
+    this.setState({ 
+      series: seriesFiltradas,
+      filtroSeries: filtro,
+    });
+  };
+
   render() {
-    const { series, cargando } = this.state;
+    const { series, cargando, filtroSeries } = this.state;
 
     if (cargando) {
       return <h2>Cargando...</h2>;
@@ -41,22 +56,31 @@ class Series extends Component {
       <>
         <h2 className="alert alert-warning">Todas las series</h2>
         <form className="filter-form px-0 mb-3">
-          <input type="text" name="filter" placeholder="Buscar dentro de la lista" />
+          <input 
+            type="text" 
+            name="filter" 
+            placeholder="Buscar dentro de la lista" 
+            value={filtroSeries}
+            onChange={this.manejarCambios}
+          />
         </form>
         
 
         <section className="row cards all-series" id="series">
-          {series.map(serie => (
-            <CardPelicula
-              key={serie.id}
-              id={serie.id}
-              titulo={serie.name}
-              imagen={serie.poster_path}
-              descripcion={serie.overview}
-              tipo="serie"
-            />
-
-          ))}
+          {series.length > 0 ? (
+            series.map(serie => (
+              <CardPelicula
+                key={serie.id}
+                id={serie.id}
+                titulo={serie.name}
+                imagen={serie.poster_path}
+                descripcion={serie.overview}
+                tipo="serie"
+              />
+            ))
+          ) : (
+            <p>No se encontraron series que coincidan.</p>
+          )}
         </section>
         <button onClick={this.obtenerSeries} className="btn btn-warning">Cargar más</button>
 

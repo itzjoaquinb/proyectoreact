@@ -12,7 +12,6 @@ import SerieDetail from './screens/SerieDetail/SerieDetail';
 import NotFound from './screens/NotFound/NotFound';
 import './styles/styles.css';
 
-
 function App() {
   return (
     <BrowserRouter>
@@ -24,7 +23,8 @@ function App() {
             <Route path="/peliculas" exact component={Movies} />
             <Route path="/series" exact component={Series} />
             <Route path="/favoritos" exact component={Favorites} />
-            <Route path="/results/:tipo/:query" component={Results} />
+            {/* Ruta corregida para que el buscador funcione */}
+            <Route path="/results/:tipo/:query" component={Results} /> 
             <Route path="/movie/:id" component={MovieDetail} />
             <Route path="/serie/:id" component={SerieDetail} />
             <Route component={NotFound} /> 

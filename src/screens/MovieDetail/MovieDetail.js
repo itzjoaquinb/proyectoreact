@@ -84,11 +84,11 @@ class MovieDetail extends Component {
           <p id="genres"><strong>Géneros:</strong> {pelicula.genres.map(g => g.name).join(', ')}</p>
         </section>
         {this.state.esFavorito ? (
-          <button className="btn alert-primary" onClick={this.quitarDeFavoritos} title="Quitar de favoritos">
+          <button className="btn alert-primary btn-fav" onClick={this.quitarDeFavoritos} title="Quitar de favoritos">
             Quitar de Favoritos ♥️
           </button>
         ) : (
-          <button className="btn alert-primary" onClick={this.agregarAFavoritos} title="Agregar a favoritos">
+          <button className="btn alert-primary btn-fav" onClick={this.agregarAFavoritos} title="Agregar a favoritos">
             Agregar a Favoritos ♡
           </button>
         )}

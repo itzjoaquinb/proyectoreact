@@ -38,14 +38,6 @@ class Home extends Component {
       .catch(err => console.log('Error al obtener datos:', err));
   }
   
-  manejarCambios = (evento) => {
-    this.setState({ valorBuscador: evento.target.value });
-  };
-  
-  manejarEnvio = (evento) => {
-    evento.preventDefault();
-    this.props.history.push(`/results?search=${this.state.valorBuscador}`);
-  };
 
   render() {
     const { peliculasPopulares, peliculasEnCartelera, cargando } = this.state;
@@ -56,21 +48,11 @@ class Home extends Component {
 
     return (
       <>
-        <form onSubmit={this.manejarEnvio} className="search-form" method="get">
-          <input 
-            type="text" 
-            className="" 
-            name="searchData" 
-            placeholder="Buscar..." 
-            value={this.state.valorBuscador}
-            onChange={this.manejarCambios}
-          />
-          <button type="submit" className="btn btn-success btn-sm">Buscar</button>
-        </form>
+
         <section className= "title">
         <h2 className="alert alert-primary">Películas populares de la semana</h2>
              <div className="text-center my-4">
-          <Link to="/movies?category=popular" className="btn btn-load">VER TODAS LAS PELICULAS POPULARES</Link>
+          <Link to="/peliculas?category=popular" className="btn btn-load">VER TODAS LAS PELICULAS POPULARES</Link>
         </div>
         </section>
         <section className="row cards" id="movies">
@@ -90,7 +72,7 @@ class Home extends Component {
           <section className= "title">
         <h2 className="alert alert-primary">Películas en cartelera</h2>
             <div className="text-center my-4">
-          <Link to="/movies?category=now_playing" className="btn btn-load">VER TODAS LAS PELICULAS EN CARTELERA</Link>
+          <Link to="/peliculas?category=now_playing" className="btn btn-load">VER TODAS LAS PELICULAS EN CARTELERA</Link>
         </div>
         </section>
         <section className="row cards" id="now-playing">

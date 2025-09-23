@@ -78,20 +78,20 @@ class CardPelicula extends Component {
           <h5 className="card-title">{titulo}</h5>
           <section className="section-desc">
             {this.state.verDescripcion && (
-              <p className="card-text">{descripcion}</p>
+              <p className="card-text btn-mirar btn-desc">{descripcion}</p>
             )}
-            <button className="btn btn-primary" onClick={this.manejarDescripcion}>
+            <button className="btn btn-mirar btn-primary" onClick={this.manejarDescripcion}>
               {this.state.textoBoton}
             </button>
-            <Link to={`/${tipo}/${id}`} className="btn btn-primary">
+            <Link to={`/${tipo}/${id}`} className="btn betn-det btn-desc btn-primary">
               Ir a detalle
             </Link>
             {this.state.esFavorito ? (
-              <button className="btn alert-primary" onClick={this.quitarDeFavoritos} title="Quitar de favoritos">
+              <button className="btn alert-primary btn-desc" onClick={this.quitarDeFavoritos} title="Quitar de favoritos">
                 ♥️
               </button>
             ) : (
-              <button className="btn alert-primary" onClick={this.agregarAFavoritos} title="Agregar a favoritos">
+              <button className="btn alert-primary btn-desc" onClick={this.agregarAFavoritos} title="Agregar a favoritos">
                 ♡
               </button>
             )}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SearchForm from '../SearchForm/SearchForm'; // Importas el componente
 import '../../styles/styles.css'; 
 
 function Header() {
@@ -19,10 +20,8 @@ function Header() {
           <Link className="nav-link" to="/favoritos">FAVORITAS</Link>
         </li>
       </ul>
-      <form className="search-form" action="results.html" method="get">
-        <input type="text" name="searchData" placeholder="Buscar..." value="" />
-        <button type="submit" className="btn btn-success btn-sm">Buscar</button>
-      </form>
+      {/* Implementas el componente SearchForm aquí */}
+      <SearchForm /> 
     </nav>
   );
 }
