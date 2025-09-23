@@ -17,7 +17,7 @@ function Header() {
           <Link className="nav-link" to="/series">SERIES</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/favoritos">FAVORITAS</Link>
+          <Link className="nav-link" to="/favoritos">FAVORITOS</Link>
         </li>
       </ul>
       {/* Implementas el componente SearchForm aquí */}

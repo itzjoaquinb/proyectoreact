@@ -57,14 +57,21 @@ class Movies extends Component {
       return <h2>Cargando...</h2>;
     }
     
-    const peliculasFiltradas = peliculas.filter(pelicula =>
-        pelicula.title.toLowerCase().includes(filtroPeliculas.toLowerCase())
-    );
+  const peliculasFiltradas = peliculas.filter(function(pelicula) {
+  var titulo = '';
+  if (pelicula && pelicula.title) {
+    titulo = pelicula.title;
+  } else if (pelicula && pelicula.name) {
+    titulo = pelicula.name;
+  }
+  return titulo.toLowerCase().includes(filtroPeliculas.toLowerCase());
+});
+
 
     return (
       <>
         <h2 className="alert alert-primary">{titulo}</h2>
-        <form className="filter-form px-0 mb-3">
+        n<form className="filter-form px-0 mb-3" onSubmit={(e) => e.preventDefault()}>
           <input 
             type="text" 
             name="filter" 

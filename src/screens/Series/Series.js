@@ -33,17 +33,24 @@ class Series extends Component {
       .catch(err => console.log('Error al obtener series:', err));
   };
 
-  manejarCambios = (e) => {
-    const filtro = e.target.value;
-    const seriesFiltradas = this.state.seriesOriginales.filter(serie =>
-      serie.name.toLowerCase().includes(filtro.toLowerCase())
-    );
+manejarCambios = (e) => {
+  const filtro = e.target.value;
 
-    this.setState({ 
-      series: seriesFiltradas,
-      filtroSeries: filtro,
-    });
-  };
+  const seriesFiltradas = this.state.seriesOriginales.filter(function(serie) {
+    var nombre = '';
+    if (serie && serie.name) {
+      nombre = serie.name;
+    } else if (serie && serie.title) {
+      nombre = serie.title;
+    }
+    return nombre.toLowerCase().includes(filtro.toLowerCase());
+  });
+
+  this.setState({ 
+    series: seriesFiltradas,
+    filtroSeries: filtro,
+  });
+};
 
   render() {
     const { series, cargando, filtroSeries } = this.state;
@@ -55,7 +62,7 @@ class Series extends Component {
     return (
       <>
         <h2 className="alert alert-warning">Todas las series</h2>
-        <form className="filter-form px-0 mb-3">
+        <form className="filter-form px-0 mb-3" onSubmit={(e) => e.preventDefault()}>
           <input 
             type="text" 
             name="filter" 
